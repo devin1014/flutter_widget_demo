@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'layout/align_page.dart';
 import 'layout/flex_page.dart';
 import 'layout/stack_page.dart';
 import 'layout/wrap_page.dart';
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const StackPage(),
+      home: const AlignPage(),
     );
   }
 }

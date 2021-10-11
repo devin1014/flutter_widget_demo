@@ -20,7 +20,7 @@ class StackPage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(0, 200, 0, 0),
+            padding: const EdgeInsets.fromLTRB(0, 100, 0, 0),
             child: SizedBox(
               width: double.infinity,
               height: 200,
@@ -37,7 +37,7 @@ class StackPage extends StatelessWidget {
             ),
           ),
           const Positioned(
-              bottom: 6,
+              bottom: 12,
               left: 12,
               child: Text(
                 "Title",
@@ -45,7 +45,7 @@ class StackPage extends StatelessWidget {
               )),
           const Positioned(
               bottom: 6,
-              right: 12,
+              right: 6,
               child: Text(
                 "description",
                 style: TextStyle(fontSize: 18, color: Colors.black),
