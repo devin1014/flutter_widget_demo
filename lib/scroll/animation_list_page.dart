@@ -84,7 +84,7 @@ class _AnimationListPageState extends State<AnimationListPage> {
             child: item,
           ),
         );
-      }, duration: Duration(milliseconds: 250));
+      }, duration: const Duration(milliseconds: 250));
     });
   }
 }
