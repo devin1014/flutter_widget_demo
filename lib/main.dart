@@ -1,14 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_demo/layout/fitted_page.dart';
-
-import 'layout/align_page.dart';
-import 'layout/clip_page.dart';
-import 'layout/constrained_box.dart';
-import 'layout/decoration_page.dart';
-import 'layout/flex_page.dart';
-import 'layout/layout_builder.dart';
-import 'layout/stack_page.dart';
-import 'layout/wrap_page.dart';
+import 'package:flutter_widget_demo/scroll/animation_list_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,7 +25,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const FittedBoxPage(),
+      home: const AnimationListPage(),
     );
   }
 }
