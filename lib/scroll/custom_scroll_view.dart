@@ -6,7 +6,7 @@ class CustomScrollViewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: const Text("CustomScrollView")), body: _buildCustomScrollView2());
+    return Scaffold(appBar: AppBar(title: const Text("CustomScrollView")), body: _buildCustomScrollView3());
   }
 
   Widget _buildCustomScrollView1() {
@@ -31,11 +31,7 @@ class CustomScrollViewPage extends StatelessWidget {
   Widget _buildSliverList() {
     return SliverFixedExtentList(
       itemExtent: 56,
-      delegate: SliverChildBuilderDelegate(
-          (_, index) => ListTile(
-                title: Text("$index"),
-              ),
-          childCount: 10),
+      delegate: SliverChildBuilderDelegate((_, index) => ListTile(title: Text("$index")), childCount: 10),
     );
   }
 
@@ -44,6 +40,38 @@ class CustomScrollViewPage extends StatelessWidget {
       color: Colors.lightBlue.shade200,
       alignment: Alignment.centerLeft,
       child: Text("PersistentHeader $i"),
+    );
+  }
+
+  Widget _buildHorizontalListView() {
+    return ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: 30,
+        itemExtent: 64,
+        itemBuilder: (context, index) {
+          return ListTile(title: Text("$index"));
+        });
+  }
+
+  Widget _buildCustomScrollView3() {
+    return CustomScrollView(
+      slivers: [
+        SliverToBoxAdapter(
+          child: SizedBox(height: 200, child: _buildHorizontalListView()),
+        ),
+        SliverToBoxAdapter(
+          child: SizedBox(height: 200, child: _buildHorizontalListView()),
+        ),
+        SliverToBoxAdapter(
+          child: SizedBox(height: 200, child: _buildHorizontalListView()),
+        ),
+        SliverToBoxAdapter(
+          child: SizedBox(height: 200, child: _buildHorizontalListView()),
+        ),
+        SliverToBoxAdapter(
+          child: SizedBox(height: 200, child: _buildHorizontalListView()),
+        )
+      ],
     );
   }
 }
