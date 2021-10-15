@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_demo/section_list.dart';
-import "package:fluttertoast/fluttertoast.dart";
+import 'package:flutter_widget_demo/share/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,12 +18,12 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         home: Scaffold(
-          appBar: AppBar(title: const Text("Widget Demo")),
-          body: SectionScrollView(
-            sections: List.generate(18, (index) => ("Title $index")),
-            titleClickListener: (item) => Fluttertoast.showToast(msg: "click: $item"),
-            contentClickListener: (item) => Fluttertoast.showToast(msg: "click: $item"),
-          ),
-        ));
+            appBar: AppBar(title: const Text("Widget Demo")),
+            // body: SectionScrollView(
+            //   sections: List.generate(18, (index) => ("Title $index")),
+            //   titleClickListener: (item) => Fluttertoast.showToast(msg: "click: $item"),
+            //   contentClickListener: (item) => Fluttertoast.showToast(msg: "click: $item"),
+            // ),
+            body: const ProviderPage()));
   }
 }
