@@ -2,8 +2,8 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 
-class InheritedProvider<T> extends InheritedWidget {
-  const InheritedProvider({
+class MyInheritedProvider<T> extends InheritedWidget {
+  const MyInheritedProvider({
     Key? key,
     required this.data,
     required Widget child,
@@ -17,54 +17,54 @@ class InheritedProvider<T> extends InheritedWidget {
   }
 }
 
-class ChangeNotifierProvider<T extends ChangeNotifier> extends StatefulWidget {
-  const ChangeNotifierProvider({
+class MyChangeNotifierProvider<T extends ChangeNotifier> extends StatefulWidget {
+  const MyChangeNotifierProvider({
     Key? key,
-    required this.data,
+    required this.notifier,
     required this.child,
   }) : super(key: key);
 
   final Widget child;
-  final T data;
+  final T notifier;
 
   static T of<T>(BuildContext context) {
     // final type=_typeOf<InheritedProvider<T>>();
-    return context.dependOnInheritedWidgetOfExactType<InheritedProvider<T>>()!.data;
+    return context.dependOnInheritedWidgetOfExactType<MyInheritedProvider<T>>()!.data;
   }
 
   @override
   State<StatefulWidget> createState() => _ChangeNotifierProviderState();
 }
 
-class _ChangeNotifierProviderState<T extends ChangeNotifier> extends State<ChangeNotifierProvider> {
+class _ChangeNotifierProviderState<T extends ChangeNotifier> extends State<MyChangeNotifierProvider> {
   void update() {
     setState(() => {});
   }
 
   @override
-  void didUpdateWidget(covariant ChangeNotifierProvider<T> oldWidget) {
-    if (widget.data != oldWidget.data) {
-      oldWidget.data.removeListener(update);
-      widget.data.addListener(update);
+  void didUpdateWidget(covariant MyChangeNotifierProvider<T> oldWidget) {
+    if (widget.notifier != oldWidget.notifier) {
+      oldWidget.notifier.removeListener(update);
+      widget.notifier.addListener(update);
     }
     super.didUpdateWidget(oldWidget);
   }
 
   @override
   void initState() {
-    widget.data.addListener(update);
+    widget.notifier.addListener(update);
     super.initState();
   }
 
   @override
   void dispose() {
-    widget.data.removeListener(update);
+    widget.notifier.removeListener(update);
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return InheritedProvider(data: widget.data, child: widget.child);
+    return MyInheritedProvider(data: widget.notifier, child: widget.child);
   }
 }
 
@@ -99,15 +99,15 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: ChangeNotifierProvider<CartModel>(
-        data: CartModel(),
+      child: MyChangeNotifierProvider<CartModel>(
+        notifier: CartModel(),
         child: Builder(
           builder: (context) {
             return Column(
               children: [
                 Builder(
                   builder: (context) {
-                    var cart = ChangeNotifierProvider.of<CartModel>(context);
+                    var cart = MyChangeNotifierProvider.of<CartModel>(context);
                     return Text("total: ${cart.totalPrice}");
                   },
                 ),
@@ -116,7 +116,7 @@ class _CartPageState extends State<CartPage> {
                     print("build...");
                     return RaisedButton(
                       onPressed: () {
-                        ChangeNotifierProvider.of<CartModel>(context).add(Item(20.0, 1));
+                        MyChangeNotifierProvider.of<CartModel>(context).add(Item(20.0, 1));
                       },
                       child: const Text("Add"),
                     );
