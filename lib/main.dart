@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_demo/touch/gusture.dart';
+
+import 'animation/animation.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,6 +25,6 @@ class MyApp extends StatelessWidget {
             //   titleClickListener: (item) => Fluttertoast.showToast(msg: "click: $item"),
             //   contentClickListener: (item) => Fluttertoast.showToast(msg: "click: $item"),
             // ),
-            body: GestureRecognizerPage()));
+            body: AnimationPage()));
   }
 }
