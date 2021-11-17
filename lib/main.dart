@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_demo/layout/aspect.dart';
-import 'package:flutter_widget_demo/sample/image.dart';
+import 'package:flutter_widget_demo/channel/channel_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -38,7 +37,7 @@ class MyApp extends StatelessWidget {
           //       return _getTagWidget(position);
           //     }),
           // body: ScrollablePositionedListExample(),
-          body: Center(child: MyImage()),
+          body: Center(child: ChannelPage()),
         ));
   }
 
