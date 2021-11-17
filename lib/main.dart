@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'list_view/scrollable_positioned_list.dart';
+import 'package:flutter_widget_demo/layout/aspect.dart';
+import 'package:flutter_widget_demo/sample/image.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,27 +33,28 @@ class MyApp extends StatelessWidget {
           //           return ListTile(
           //             title: Text("index:$index"),
           //           );
-          //         }),
+          //         }),x
           //     tagBuilder: (position, totalCount) {
           //       return _getTagWidget(position);
           //     }),
-          body: ScrollablePositionedListExample(),
+          // body: ScrollablePositionedListExample(),
+          body: Center(child: MyImage()),
         ));
   }
 
-  Widget _getTagWidget(int position) {
-    return DecoratedBox(
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey, width: 0.5),
-          color: Colors.white,
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
-        ),
-        child: SizedBox(
-            width: 64,
-            height: 64,
-            child: Center(
-              child: Text("$position",
-                  textAlign: TextAlign.center, style: const TextStyle(color: Colors.black, fontSize: 28)),
-            )));
-  }
+// Widget _getTagWidget(int position) {
+//   return DecoratedBox(
+//       decoration: BoxDecoration(
+//         border: Border.all(color: Colors.grey, width: 0.5),
+//         color: Colors.white,
+//         borderRadius: const BorderRadius.all(Radius.circular(8)),
+//       ),
+//       child: SizedBox(
+//           width: 64,
+//           height: 64,
+//           child: Center(
+//             child: Text("$position",
+//                 textAlign: TextAlign.center, style: const TextStyle(color: Colors.black, fontSize: 28)),
+//           )));
+// }
 }
