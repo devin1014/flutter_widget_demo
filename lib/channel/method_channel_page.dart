@@ -3,14 +3,14 @@ import 'package:flutter/services.dart';
 
 const methodChannel1 = "com.flutter.demo.MethodChannel1";
 
-class ChannelPage extends StatefulWidget {
-  const ChannelPage({Key? key}) : super(key: key);
+class MethodChannelPage extends StatefulWidget {
+  const MethodChannelPage({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _ChannelPageState();
+  State<StatefulWidget> createState() => _MethodChannelPageState();
 }
 
-class _ChannelPageState extends State<ChannelPage> {
+class _MethodChannelPageState extends State<MethodChannelPage> {
   final channel = const MethodChannel(methodChannel1);
   var _responseIndex = "";
   var _responseData = "";

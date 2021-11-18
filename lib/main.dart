@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_demo/channel/channel_page.dart';
+import 'package:flutter_widget_demo/channel/method_channel_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
           //       return _getTagWidget(position);
           //     }),
           // body: ScrollablePositionedListExample(),
-          body: Center(child: ChannelPage()),
+          body: Center(child: MethodChannelPage()),
         ));
   }
 
