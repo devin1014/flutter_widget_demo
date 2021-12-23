@@ -66,7 +66,7 @@ class ProviderPage extends StatelessWidget {
               ),
             );
           }),
-          Consumer<MyModule>(builder: (context, model, child) {
+          Consumer<MyModule>(builder: (context, model, ch) {
             print("$this Consumer1...}");
             return Container(
               margin: const EdgeInsets.only(top: 20),

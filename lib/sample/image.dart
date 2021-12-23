@@ -9,7 +9,7 @@ class MyImage extends StatelessWidget {
       width: 100,
       height: 100,
       color: Colors.grey.shade300,
-      child: Center(child: FlutterLogo(size: 40)),
+      child: const Center(child: FlutterLogo(size: 40)),
     );
   }
 }

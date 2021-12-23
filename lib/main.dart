@@ -1,60 +1,53 @@
 import 'package:flutter/material.dart';
-
-import 'channel/android_native_page.dart';
+import 'package:flutter_widget_demo/list_view/scrollable_positioned_list.dart';
+import 'package:flutter_widget_demo/router/router_demo.dart';
+import 'package:flutter_widget_demo/routers.dart';
 
 void main() {
+  Routers.init();
+  Routers.setGlobalPrams({'globalKey1': 'globalValue1'});
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  static const pages = [RouterDemo(), ScrollablePositionedListExample()];
+  static const colors = [Colors.greenAccent, Colors.blueGrey, Colors.redAccent, Colors.amberAccent];
+
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          // This is the theme of your application.
-          primarySwatch: Colors.blue,
-        ),
-        home: Scaffold(
-          appBar: AppBar(title: const Text("Widget Demo")),
-          // body: SectionScrollView(
-          //   sections: List.generate(18, (index) => ("Title $index")),
-          //   titleClickListener: (item) => Fluttertoast.showToast(msg: "click: $item"),
-          //   contentClickListener: (item) => Fluttertoast.showToast(msg: "click: $item"),
-          // ),
-          // body: TagListView(
-          //     listView: ListView.builder(
-          //         itemCount: 99,
-          //         itemExtent: 56,
-          //         itemBuilder: (context, index) {
-          //           return ListTile(
-          //             title: Text("index:$index"),
-          //           );
-          //         }),x
-          //     tagBuilder: (position, totalCount) {
-          //       return _getTagWidget(position);
-          //     }),
-          // body: ScrollablePositionedListExample(),
-          body: Center(child: AndroidNativeViewPage()),
-        ));
+      title: 'Flutter Demo',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      onGenerateRoute: (settings) {
+        return PageRouteBuilder(
+            settings: settings,
+            pageBuilder: (context, _, __) {
+              final index = settings.arguments as int? ?? 0;
+              return pages[index];
+            });
+      },
+      home: Scaffold(
+        appBar: AppBar(title: const Text("Flutter Demo")),
+        body: GridView.builder(
+            itemCount: pages.length,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+            itemBuilder: (context, index) => Builder(builder: (context) {
+                  final name = pages[index].runtimeType.toString();
+                  return InkWell(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(name, arguments: index);
+                      },
+                      child: Container(
+                        height: 128,
+                        padding: const EdgeInsets.all(6),
+                        alignment: Alignment.center,
+                        color: colors[index % colors.length],
+                        child: Text(name, style: const TextStyle(fontSize: 14)),
+                      ));
+                })),
+      ),
+    );
   }
-
-// Widget _getTagWidget(int position) {
-//   return DecoratedBox(
-//       decoration: BoxDecoration(
-//         border: Border.all(color: Colors.grey, width: 0.5),
-//         color: Colors.white,
-//         borderRadius: const BorderRadius.all(Radius.circular(8)),
-//       ),
-//       child: SizedBox(
-//           width: 64,
-//           height: 64,
-//           child: Center(
-//             child: Text("$position",
-//                 textAlign: TextAlign.center, style: const TextStyle(color: Colors.black, fontSize: 28)),
-//           )));
-// }
 }

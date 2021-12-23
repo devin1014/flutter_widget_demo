@@ -4,7 +4,7 @@ import 'package:flutter_widget_demo/framework/base_change_notifier_widget.dart';
 class CategoryViewModel extends BaseViewModel {}
 
 class CategoryTestPage extends BaseChangeNotifierWidget<CategoryViewModel> {
-  CategoryTestPage({
+  const CategoryTestPage({
     Key? key,
     required CategoryViewModel model,
   }) : super(key: key, model: model);
