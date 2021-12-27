@@ -16,65 +16,84 @@ abstract class BaseRouterPage extends StatefulWidget {
   State<BaseRouterPage> createState() => _BaseRouterPageState();
 }
 
-class _BaseRouterPageState extends State<BaseRouterPage> {
+class _BaseRouterPageState extends State<BaseRouterPage> with WidgetsBindingObserver {
   late String name;
   bool _postParams = false;
   bool _resultParams = false;
+  final _transferParam = {'key1': 'value1'};
+  final _transferResult = {'code': 'success'};
 
   @override
   void initState() {
     name = widget.runtimeType.toString();
-    print("$name initState. params:${widget.params}");
+    print("$name -> initState. params:${widget.params}");
+    WidgetsBinding.instance?.addObserver(this);
     super.initState();
   }
 
   @override
   void dispose() {
-    print("$name dispose.");
+    WidgetsBinding.instance?.removeObserver(this);
+    print("$name -> dispose.");
     super.dispose();
   }
 
   @override
   void didChangeDependencies() {
-    print("$name didChangeDependencies.");
+    print("$name -> didChangeDependencies.");
     super.didChangeDependencies();
   }
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    print("$name -> didChangeAppLifecycleState: $state");
+  }
+
+  @override
   void didUpdateWidget(covariant BaseRouterPage oldWidget) {
-    print("$name didUpdateWidget.");
+    print("$name -> didUpdateWidget.");
     super.didUpdateWidget(oldWidget);
   }
 
   @override
   void deactivate() {
-    print("$name deactivate.");
+    print("$name -> deactivate.");
     super.deactivate();
   }
 
   @override
   void activate() {
-    print("$name activate.");
+    print("$name -> activate.");
     super.activate();
   }
 
   @override
   void reassemble() {
-    print("$name reassemble.");
+    print("$name -> reassemble.");
     super.reassemble();
   }
 
   @override
   Widget build(BuildContext context) {
-    print("$name build");
+    print("$name -> build");
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: Text(widget.runtimeType.toString())),
+        appBar: AppBar(
+          title: Text(widget.runtimeType.toString()),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () {
+              Routers.pop(context, _resultParams ? _transferResult : null);
+            },
+          ),
+        ),
         body: WillPopScope(
-          onWillPop: () async {
-            //TODO:
-            Routers.pop(context, {'result': 'success'});
-            return true;
+          onWillPop: () {
+            //TODO: router不同, 无法获得返回参数
+            //TODO: router不同, 无法获得返回参数
+            Routers.pop(context, _resultParams ? _transferResult : null);
+            return Future.value(false);
           },
           child: _buildContent(),
         ),
@@ -100,7 +119,7 @@ class _BaseRouterPageState extends State<BaseRouterPage> {
         SizedBox(
             height: 64,
             child: Row(children: [
-              const Text("传递参数:{key1:value1}"),
+              Text("传递参数: ${_transferParam.toString()}"),
               Checkbox(
                   value: _postParams,
                   onChanged: (bool? value) {
@@ -110,7 +129,7 @@ class _BaseRouterPageState extends State<BaseRouterPage> {
         SizedBox(
             height: 64,
             child: Row(children: [
-              const Text("返回结果:{result:success}"),
+              Text("返回结果: ${_transferResult.toString()}"),
               Checkbox(
                   value: _resultParams,
                   onChanged: (bool? value) {
@@ -118,28 +137,34 @@ class _BaseRouterPageState extends State<BaseRouterPage> {
                   })
             ])),
         Container(height: 2, color: Colors.grey),
+        Padding(
+          padding: const EdgeInsets.all(12),
+          child: Text(widget.params.toString(), style: const TextStyle(fontSize: 18)),
+        )
       ],
     );
   }
 
-  void route2Page(BuildContext context, String path) {
-    final params = _postParams ? {'a1': 'b1'} : null;
-    Routers.navigateTo(
+  void route2Page(BuildContext context, String path) async {
+    await Routers.navigateTo(
       context,
       path,
-      params: params,
+      params: _postParams ? _transferParam : null,
       transitionDuration: const Duration(milliseconds: 700),
       replace: false,
     ).then((result) {
-      print("result: $result");
+      print("$name -> result: $result");
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text("返回结果: $result")),
+      // );
     }).catchError((error) {
-      print("error: $error");
+      print("$name -> error:  $error");
     });
   }
 }
 
 class RouterDemo extends BaseRouterPage {
-  const RouterDemo({Key? key, dynamic params}) : super(key: key, params: params);
+  const RouterDemo({Key? key}) : super(key: key, params: null);
 }
 
 class RouterPageA extends BaseRouterPage {
