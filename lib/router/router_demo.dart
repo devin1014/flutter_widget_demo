@@ -89,11 +89,12 @@ class _BaseRouterPageState extends State<BaseRouterPage> with WidgetsBindingObse
           ),
         ),
         body: WillPopScope(
-          onWillPop: () {
+          onWillPop: () async {
             //TODO: router不同, 无法获得返回参数
             //TODO: router不同, 无法获得返回参数
-            Routers.pop(context, _resultParams ? _transferResult : null);
-            return Future.value(false);
+            // Routers.pop(context, _resultParams ? _transferResult : null);
+            return !await Routers.globalNavigatorKey.currentState!.maybePop(_resultParams ? _transferResult : null);
+            // return false;
           },
           child: _buildContent(),
         ),
@@ -151,6 +152,7 @@ class _BaseRouterPageState extends State<BaseRouterPage> with WidgetsBindingObse
       path,
       params: _postParams ? _transferParam : null,
       transitionDuration: const Duration(milliseconds: 700),
+      rootNavigator: true,
       replace: false,
     ).then((result) {
       print("$name -> result: $result");

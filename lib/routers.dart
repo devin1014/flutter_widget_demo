@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_demo/router/router_demo.dart';
 
 class Routers {
+  static final GlobalKey<NavigatorState> globalNavigatorKey = GlobalKey<NavigatorState>();
   static final FluroRouter _router = FluroRouter();
 
   static init() {
