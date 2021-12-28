@@ -10,7 +10,7 @@ class Log {
     } else if (object is State) {
       tag = object.widget.runtimeType.toString();
     } else {
-      tag = object.toString();
+      tag = object.runtimeType.toString();
     }
     tag = tag.replaceFirst("_", "");
     print("$tag(0x${object.hashCode.toRadixString(16)}) -> $msg");

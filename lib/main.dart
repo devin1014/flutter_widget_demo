@@ -19,8 +19,8 @@ class MyApp extends StatelessWidget {
     NavigatorDemo(),
     ScrollablePositionedListExample(),
     InheritedWidgetDemo(),
-    ProviderPage(),
-    CartPage(),
+    MyProviderDemo(),
+    ChangeNotifierProviderDemo(),
   ];
   static const colors = [Colors.greenAccent, Colors.blueGrey, Colors.redAccent, Colors.amberAccent];
 
